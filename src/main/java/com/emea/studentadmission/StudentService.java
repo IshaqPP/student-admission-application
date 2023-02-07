@@ -3,6 +3,9 @@ package com.emea.studentadmission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StudentService {
     @Autowired
@@ -36,5 +39,25 @@ public class StudentService {
         }
         return admissionNum;
     }
+    public List<Student> getAllStudents(){
+        Student student1 = new Student();
+        Student student2 = new Student();
+        List<Student> students = new ArrayList<Student>();
+        students = studentRepo.findAll();
+        students = sortList(students);
+        return students;
+    }
 
+    private List<Student> sortList(List<Student> students) {
+        for(int i=0;i<students.size();i++){
+            for(int j=i+1;j<students.size();j++){
+                if(students.get(i).getName().compareTo(students.get(j).getName())>0){
+                    Student temp = students.get(i);
+                    students.set(i, students.get(j));
+                    students.set(j, temp);
+                }
+            }
+        }
+        return students;
+    }
 }

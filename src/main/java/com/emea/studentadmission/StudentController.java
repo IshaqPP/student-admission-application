@@ -1,11 +1,13 @@
 package com.emea.studentadmission;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
     @Autowired
@@ -15,5 +17,12 @@ public class StudentController {
         Student student = new Student();
         student =  studentService.admitStudent(studentReq);
         return student;
+    }
+
+    @GetMapping(path = "/allstudents")
+    public List<Student> getAllStudents(){
+        List<Student> students = new ArrayList<>();
+        students = studentService.getAllStudents();
+        return students;
     }
 }
